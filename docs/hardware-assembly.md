@@ -1,3 +1,5 @@
+## Hardware Design and Assembly
+
 The objective of this project is to build a handheld device that simulates a marble maze toy with an LED matrix and an accelerometer. The LED matrix will display a virtual representation of a maze and the user will tilt the entire matrix to guide a virtual marble through the maze to the goal. Key objectives for the hardware design are:
 
 1. The device is self-contained and portable - untethered by power cables, computing happens in the device
