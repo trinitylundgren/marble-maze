@@ -1,0 +1,3 @@
+[submodule "Adafruit_PixelDust"]
+	path = Adafruit_PixelDust
+	url = https://github.com/adafruit/Adafruit_PixelDust.git

@@ -51,6 +51,9 @@ LevelData::LevelData(std::string bmpPath) {
     delete [] data;
 }
 
+FEATURE LevelData::get(int i, int j) {
+    return levelFeatures[i][j];
+}
 
 std::ostream& operator<<(std::ostream &strm, const LevelData &ld) {
     for (int i = 0; i < HEIGHT; ++i) {
@@ -73,9 +76,10 @@ bool operator< (struct pixel a, struct pixel b) {
            b.red * 0x10000 + a.green * 0x100 + a.blue;
 }
 
-int main() {
+/*int main() {
     // TODO: No segfault with bad filenames
     std::string filename = "level-data/level-0.bmp";
     LevelData levelData = LevelData(filename);
     std::cout << levelData;
 }
+*/

@@ -29,6 +29,8 @@ static std::map<FEATURE, std::string> featuresToChars {
     {EMPTY, " "}, {WALL, "*"}, {SAND, "S"}
 };
 
+bool operator< (struct pixel a, struct pixel b);
+
 class LevelData {
     public:
       LevelData(std::string);
