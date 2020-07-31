@@ -12,7 +12,7 @@ BUTTON_MODE  = 19  # Cycle between modes
 BUTTON_RESET = 25  # Restart current mode
 BUTTONS      = [BUTTON_RESET, BUTTON_MODE]
 PROGRAMS     = ["level-demo"]
-FLAGS        = ["--led-rgb-sequence=rbg", "--led-brightness=100"]
+FLAGS        = ["--led-rgb-sequence=rbg", "--led-brightness=30"]
 MODE         = 0
 PROCESS      = None
 

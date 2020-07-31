@@ -18,7 +18,7 @@
 
 #define N_GRAINS 1 ///< Number of sand grains on 64x64 matrix
 
-#define LEVEL_PATH "level-data/level-0.bmp"
+#define LEVEL_PATH "level-data/level-3.bmp"
 
 struct RGBLedMatrix *matrix;
 Adafruit_LIS3DH lis3dh;
@@ -71,11 +71,6 @@ int main(int argc, char **argv) {
   fprintf(stderr, "Size: %dx%d. Hardware gpio mapping: %s\n", width, height,
           options.hardware_mapping);
 
-  if (width < 64)
-    nGrains /= 2; // Adjust sand count
-  if (height < 64)
-    nGrains /= 2; // for smaller matrices
-
   if (lis3dh.begin()) {
     puts("LIS3DH init failed");
     return 2;
@@ -87,21 +82,6 @@ int main(int argc, char **argv) {
     return 3;
   }
 
-  /*
-  // Create level one maze obstacle
-  for (y = 0; y < height; ++y) {
-      for (x = 0; x < width; ++x) {
-          // Left and right border, width 2
-          if (x < 2 || x > width - 3) {
-              sand->setPixel(x, y);
-          }
-          // Top and bottom border, width 2
-          if (y < 2 || y > height - 3) {
-              sand->setPixel(x, y);
-          }
-      }
-  }
-  */
 
   // Loop over every pixel in levelData, insert obstacles
   for (int i = 0; i < 64; ++i) {
@@ -111,11 +91,16 @@ int main(int argc, char **argv) {
              case WALL:
                  sand->setPixel(i, j);
                  break;
+             case SAND:
+                 x = (dimension_t)i;
+                 y = (dimension_t)j;
+                 sand->setPosition(0, x, y);
+                 break;
+             case EMPTY:
+                 break;
          }
       }
   }
-
-  sand->randomize(); // Initialize random sand positions
 
   while (running) {
     // Read accelerometer...
@@ -134,30 +119,14 @@ int main(int argc, char **argv) {
     for (int i = 0; i < 64; ++i) {
         for (int j = 0; j < 64; ++j) {
            FEATURE feature = levelData.get(i, j);
-           switch(feature) {
-               case WALL:
-                   led_canvas_set_pixel(canvas, i, j, 32, 32, 96);
-                   break;
+           if (feature == WALL) {
+               led_canvas_set_pixel(canvas, i, j, 32, 32, 96);
            }
         }
     }
-    /*for (y = 0; y < height; ++y) {
-        for (x = 0; x < width; ++x) {
-            // Left and right border, width 2
-            if (x < 2 || x > width - 3) {
-                led_canvas_set_pixel(canvas, x, y, 32, 32, 96);
-            }
-            // Top and bottom border, width 2
-            if (y < 2 || y > height - 3) {
-                led_canvas_set_pixel(canvas, x, y, 32, 32, 96);
-            }
-        }
-    }
-    */
-    for (i = 0; i < nGrains; i++) { // Sand...
-      sand->getPosition(i, &x, &y);
-      led_canvas_set_pixel(canvas, x, y, 200, 200, 100);
-    }
+
+    sand->getPosition(0, &x, &y);
+    led_canvas_set_pixel(canvas, x, y, 200, 200, 100);
 
     // Update matrix contents on next vertical sync
     // and provide a new canvas for the next frame.
