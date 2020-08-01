@@ -21,3 +21,6 @@ The major hardware components for marble maze are:
 <img src="https://i.imgur.com/2IJf5Z0.jpg" width="600">
 
 ## Assembly
+
+1. The first step was to assemble the **Adafruit RGB Matrix Hat**. This required soldering three headers to the board: one for the Raspberry Pi's GPIO pins (the HAT will sit directly on top of the Pi), one for the LED matrix, and one for 5V out to power the matrix.
+
