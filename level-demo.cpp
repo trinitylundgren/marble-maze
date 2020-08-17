@@ -87,13 +87,13 @@ int main(int argc, char **argv) {
   for (int i = 0; i < 64; ++i) {
       for (int j = 0; j < 64; ++j) {
          FEATURE feature = levelData.get(i, j);
+         x = (dimension_t)j;
+         y = (dimension_t)i;
          switch(feature) {
              case WALL:
-                 sand->setPixel(i, j);
+                 sand->setPixel(x, y);
                  break;
              case SAND:
-                 x = (dimension_t)i;
-                 y = (dimension_t)j;
                  sand->setPosition(0, x, y);
                  break;
              case EMPTY:
@@ -119,8 +119,10 @@ int main(int argc, char **argv) {
     for (int i = 0; i < 64; ++i) {
         for (int j = 0; j < 64; ++j) {
            FEATURE feature = levelData.get(i, j);
+           x = (dimension_t)j;
+           y = (dimension_t)i;
            if (feature == WALL) {
-               led_canvas_set_pixel(canvas, i, j, 32, 32, 96);
+               led_canvas_set_pixel(canvas, x, y, 32, 32, 96);
            }
         }
     }

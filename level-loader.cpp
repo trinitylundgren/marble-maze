@@ -36,7 +36,7 @@ LevelData::LevelData(std::string bmpPath) {
             struct pixel currentPixel = pixels[i * WIDTH + j];
             if (pixelsToFeatures.find(currentPixel) != pixelsToFeatures.end()) {
                 FEATURE currentFeature = pixelsToFeatures[currentPixel];
-                levelFeatures[HEIGHT - i - 1][WIDTH - j - 1] = currentFeature;
+                levelFeatures[HEIGHT - i - 1][j] = currentFeature;
             }
             else {
                 std::cerr << "Unrecognized pixel in bmp_path: \n";
